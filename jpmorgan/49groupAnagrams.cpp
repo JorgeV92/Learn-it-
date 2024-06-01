@@ -68,7 +68,7 @@ int main() {
 
     result = arrHash.groupAnagrams(strs);
 
-    auto printResult = [&]() {
+    auto printResult = [](std::vector<std::vector<std::string>>& result) {
         for (const auto& group : result) {
             std::cout << "[";
             for (size_t i = 0; i < group.size(); i++) {
@@ -83,7 +83,7 @@ int main() {
 
     std::cout << "Output : ";
 
-    printResult();
+    printResult(result);
 
 }
 
