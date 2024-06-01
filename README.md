@@ -8,3 +8,6 @@ This is a documentation of the process of learning and understanding algorithms 
 <sub>Problem</sub> | <sub>Ocaml</sub> | <sub>C++</sub> |
 ---- | ---- | ---- | 
 <sub>[0217 - Contains Duplicate](https://leetcode.com/problems/contains-duplicate/)</sub> | <sub><div align='center'>[✔️](c%2F0217-contains-duplicate.c)</div></sub> | <sub><div align='center'>[✔️](cpp%2F0217-contains-duplicate.cpp)</div></sub> | </div></sub>
+
+
+### JPMorgan
