@@ -11,5 +11,4 @@ Left off in question 0680-Valid-Palindrome-II
 
 ### JPMorgan
 
-Left off in question Add-Two-Numbers
-
+Left off in question Maximum Units on a Truck 
