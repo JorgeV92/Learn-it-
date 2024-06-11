@@ -56,7 +56,9 @@ let count_substrings_dp s =
           end
         done
       done;
-      !count 
+      !count (* Return the total count of palindromic substrings *)
+
+      
 let () = 
     let test s expected = 
       let result = count_substrings_dp s in 
