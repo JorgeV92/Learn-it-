@@ -67,3 +67,17 @@ class Dijkstra {
             return 0.0;
         }
 };
+
+int main () {
+    Dijkstra dijkstra;
+
+    std::vector<std::vector<int>> edges1 = {{0, 1}, {1, 2}, {0, 2}};
+    std::vector<double> succPro1 = {0.5, 0.5, 0.2};
+    int n1 = 3;
+    int start1 = 0;
+    int end1 = 2;
+    std::cout << "Maximum probability from " << start1 << " to " << end1 << ": "
+              << dijkstra.maxProbability(n1, edges1, succPro1, start1, end1) << std::endl;
+
+    return 0;
+}
