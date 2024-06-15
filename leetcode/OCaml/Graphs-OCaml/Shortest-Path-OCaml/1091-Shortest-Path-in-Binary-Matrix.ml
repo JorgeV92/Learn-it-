@@ -45,41 +45,4 @@ let shortest_path_binary_matrix grid =
             bfs (path_length + 1)
           else
             let x, y = Queue.pop q in
-            if x = n - 1 && y = n - 1 then
-              path_length
-            else (
-              Array.iter (fun (dx, dy) ->
-                let new_x = x + dx in
-                let new_y = y + dy in
-                if new_x >= 0 && new_x < n && new_y >= 0 && new_y < n && grid.(new_x).(new_y) = 0 then begin
-                  Queue.add (new_x, new_y) q;
-                  grid.(new_x).(new_y) <- 1;
-                end
-              ) directions;
-              process_queue (size - 1)
-            )
-        in
-        process_queue size
-    in
-    bfs 1
-
-let () =
-  let grid1 = [|
-    [|0; 1; 0|];
-    [|1; 0; 0|];
-    [|0; 0; 0|]
-  |] in
-  printf "Shortest path length in grid1: %d\n" (shortest_path_binary_matrix grid1);
-
-  let grid2 = [|
-    [|0; 1|];
-    [|1; 0|]
-  |] in
-  printf "Shortest path length in grid2: %d\n" (shortest_path_binary_matrix grid2);
-
-  let grid3 = [|
-    [|1; 0|];
-    [|0; 0|]
-  |] in
-  printf "Shortest path length in grid3: %d\n" (shortest_path_binary_matrix grid3);
-
+            if x = n - 1 && y = n - 1
