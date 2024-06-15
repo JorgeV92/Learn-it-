@@ -1,4 +1,4 @@
-# Learn-it-
+# LI-Complete
 
 This is a documentation of the process of learning and understanding algorithms and data structures, serving as a personal record of LeetCode questions. Most implementations will include more comments and descriptions than necessary. Initially, most implementations will be done in C++, but I will also work on an OCaml version to maintain my functional programming skills and continue growing my skill set with a meta-language. All resources will be credited and documented if I use solutions provided on the web, such as NeetCode.
 
@@ -8,6 +8,14 @@ This is a documentation of the process of learning and understanding algorithms 
 <sub>Problem</sub> | <sub>Ocaml</sub> | <sub>C++</sub> |
 ---- | ---- | ---- | 
 <sub>[0217 - Contains Duplicate](https://leetcode.com/problems/contains-duplicate/)</sub> | <sub><div align='center'>[✔️](c%2F0217-contains-duplicate.c)</div></sub> | <sub><div align='center'>[✔️](cpp%2F0217-contains-duplicate.cpp)</div></sub> | </div></sub>
+
+## Shortest Path
+
+[[back to top]](#company-index)
+ | Problem                                                                                                                         | Difficulty   | Solution                                                                                                                                                                                                                                                                           |
+|:--------------------------------------------------------------------------------------------------------------------------------|:-------------|:-----------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------|
+ | [Shortest Path in Binary Matrix](https://leetcode.com/problems/shortest-path-in-binary-matrix/description/)             | Medium       | [Solution](https://github.com/JorgeV92/Learn-it-/blob/main/leetcode/CPP/Graphs/Shortest-Path/1091-Shortest-Path-in-Binary-Matrix.cpp)                                                                                                                                                              |
+ | [Group Anagrams](https://leetcode.com/problems/group-anagrams/)                                                                 | Medium       | [C++](https://github.com/JorgeV92/Learn-it-/blob/main/jpmorgan/49groupAnagrams.cpp)                                                                                                                                                          |
 
 
 ## JPMorgan
