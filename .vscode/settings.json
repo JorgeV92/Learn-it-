@@ -37,4 +37,6 @@
         "typeinfo": "cpp",
         "variant": "cpp",
         "algorithm": "cpp",
-      
+        "vector": "cpp"
+    }
+}
