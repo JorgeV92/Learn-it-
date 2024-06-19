@@ -39,3 +39,13 @@ This is a documentation of the process of learning and understanding algorithms 
  | [Paint Fence](https://leetcode.com/problems/paint-fence/)                                                                       | Easy         | [Solution](https://github.com/fishercoder1534/Leetcode/blob/master/src/main/java/com/fishercoder/solutions/_276.java)                                                                                                                                                              |
  | [Longest Substring Without Repeating Characters](https://leetcode.com/problems/longest-substring-without-repeating-characters/) | Medium       | [Solution](https://github.com/fishercoder1534/Leetcode/blob/master/src/main/java/com/fishercoder/solutions/_3.java), [C++](https://github.com/fishercoder1534/Leetcode/blob/master/cpp/_3.cpp)                                                                                     |
  | [Determine Color of a Chessboard Square](https://leetcode.com/problems/determine-color-of-a-chessboard-square/)                 | Easy         | [Solution](https://github.com/fishercoder1534/Leetcode/blob/master/src/main/java/com/fishercoder/solutions/_1812.java)                                                                                                                                                             |
+
+
+
+
+ # Resources
+ 1. [Wiki](https://en.wikipedia.org/wiki/Algorithm) 
+ 2. [Neetcode](https://neetcode.io/)
+ 3. [Algorithms Jeff Erickson](https://jeffe.cs.illinois.edu/teaching/algorithms/)
+ 4. [Introduction to Algorithms, Fourth Edition](https://dl.ebooksworld.ir/books/Introduction.to.Algorithms.4th.Leiserson.Stein.Rivest.Cormen.MIT.Press.9780262046305.EBooksWorld.ir.pdf)
+
