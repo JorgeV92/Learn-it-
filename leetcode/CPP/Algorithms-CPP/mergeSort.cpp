@@ -57,7 +57,7 @@ void TopDownSplitMerge(int B[], int iBegin, int iEnd, int A[]) {
     TopDownSplitMerge(A, iBegin, iMiddle, B);   // sort the left run 
     TopDownSplitMerge(A, iMiddle, iEnd, B);     // sort the right run
     // merge the resulting runs from array B[] into A[]
-    
+    TopDownMerge(B, iBegin, iMiddle, iEnd, A);
 }
 
 
