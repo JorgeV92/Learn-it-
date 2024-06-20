@@ -1,5 +1,4 @@
 // MERGE SORT
-#include <iostream>
 
 ///////////////////////////////////////////////////////////////////////////////////////////////
 // Wiki source https://en.wikipedia.org/wiki/Merge_sort
@@ -15,11 +14,11 @@
 //
 ///////////////////////////////////////////////////////////////////////////////////////////////
 
-///////////////////////////////////////////////////////////////////////////////////////////////
-// Algorithnms Jeff Erickson
-//
-//
-///////////////////////////////////////////////////////////////////////////////////////////////
+#include <fstream>
+#include <iostream>
+#include <sstream>
+#include <vector>
+#include <random>
 
 //*********************************************************************************
 
@@ -180,8 +179,88 @@ void BottomUpMergeSort(int A[], int B[], int n) {
 
 //*********************************************************************************
 
+////////////////////////////////////////////////////////////////////////////////////
+// Functions to test Merge Sort 
+////////////////////////////////////////////////////////////////////////////////////
+
+void readNumbersFromFile(const std::string& filename,
+                         std::vector<int>& numbers) {
+    std::ifstream file(filename);
+    std::string line;
+    if (file.is_open()) {
+        while (getline(file, line)) {  // Read lines form the filr
+            std::istringstream iss(line);
+            int number;
+            while (iss >> number) {  // Extract numbers from the file
+                numbers.push_back(number);
+            }
+        }
+    } else {
+        std::cout << "Unable to open file";
+    }
+}
+
+void writeRandomIntegersToFile(const std::string& filename) {
+    std::random_device rd;      // Seed
+    std::mt19937 gen(rd());     // Standard mersenne_twister_engine
+    std::uniform_int_distribution<> dis(0, 100);
+
+    std::ofstream outFile(filename);
+    if (!outFile.is_open()) {
+        std::cerr << "Failed to open the file for writing." << std::endl;
+        return;
+    }
+
+    for (int i = 0; i < 200; i++) {
+        int randomNumber = dis(gen);    // Generate a random integer
+        outFile << randomNumber;
+
+        if ((i + 1) % 50 == 0) {
+            outFile << "\n"; // New line after every 50 numbers
+        } else {
+            outFile << " "; // Space separator for numbers in the same line
+        }
+    }
+
+    outFile.close();
+ }
+
+
+void testTopDownMergeFromFile(const std::string& filename) {
+    std::vector<int> numbers;
+    readNumbersFromFile(filename, numbers);
+
+    if (numbers.empty()) {
+        std::cout << "No numbers read from file." << std::endl;
+        return;
+    }
+
+    int n = numbers.size();
+    std::vector<int> B(n);  // Auxiliary array
+
+    TopDownMergeSort(numbers.data(), B.data(), n);
+
+    for (int i = 0; i < n; i++) {
+        std::cout << numbers[i];
+
+        if ((i + 1) % 20 == 0) {
+            std::cout << "\n"; // New line after every 20 numbers
+        } else {
+            std::cout  << " "; // Space separator for numbers in the same line
+        }
+    }
+}
+
+////////////////////////////////////////////////////////////////////////////////////
+// END
+////////////////////////////////////////////////////////////////////////////////////
+
+
+
 int main() {
     std::cout << "Compiled\n";
-    testTopDownMerge();
+    std::string filename = "random_numbers.txt"; 
+    writeRandomIntegersToFile(filename); // Write exactly 100 random integers from 0 to 100
+    testTopDownMergeFromFile(filename);
     return 0;
 }
