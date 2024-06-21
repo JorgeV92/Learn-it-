@@ -28,10 +28,8 @@
 #################################################################################################
 
 
-#
-# [5, 8, 10]
-# [4, 9, 10]
-#
+from typing import List
+import bisect
 
 def read_input():
     n, k = map(int, input().strip().split())
@@ -41,12 +39,26 @@ def read_input():
     assert len(q) == k
     return a, q
 
+def binary_search_bisect(A: List[int], Q: List[int]) -> List[int]:
+    result = []
+    for q in Q:
+        # Find the insertion point for q in A to maintain sorted order.
+        index = bisect.bisect_right(A, q)
+        # index is the position where q would go to keep A sorted,
+        # which means all elements to the left of this index are <= q.
+        # So, the maximum index of an element not greater than q is index - 1.
+        if index > 0:
+            result.append(index)
+        else:
+            result.append(0)
+    return result
+
 def binary_search(A, Q):
     result = []
     for q in Q:
         l = 0; r = len(A) - 1
         found = False
-        while (l <= r):
+        while l <= r:
             m = l + (r - l) // 2
             if A[m] == q:
                 result.append(m + 1)
