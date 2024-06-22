@@ -71,11 +71,29 @@ def binary_search(A, Q):
         if not found:
             result.append(r + 1)
     return result
+
+def closest_to_the_left():
+    n, k = map(int, input().strip().split())
+    a = list(map(int, input().strip().split()))
+    queues = list(map(int, input().strip().split()))
+    for x in queues:        
+        l = -1  # a[i] <= x
+        r = n   # a[r] > x
+        while (r > l + 1):
+            m = (l + r) // 2
+            if a[m] <= x:
+                l = m 
+            else:
+                r = m 
+        print(l + 1)
+        
         
     
 if __name__ == "__main__":
-    A, Q = read_input()
-    res = binary_search(A, Q)
-    print("\n")
-    for num in res:
-        print(num)
+    # A, Q = read_input()
+    # res = binary_search(A, Q)
+    # print("\n")
+    # for num in res:
+    #     print(num)
+    
+    closest_to_the_left()

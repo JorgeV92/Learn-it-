@@ -62,7 +62,25 @@ def binary_search(A: List[int], Q: List[int]) -> None:
     
     for num in min_indices:
         print(num)
+        
+def closest_to_the_right():
+    n, k = map(int, input().split())
+    A = list(map(int, input().split()))
+    Q = list(map(int, input().split()))
+    
+    for x in Q:
+        l = -1  # A[l] < x
+        r = n   # A[r] >= x
+        while r > l + 1:
+            m = (l + r) // 2
+            if A[m] >= x:
+                r = m
+            else:
+                l = m
+        print(r + 1)
+    
     
 if __name__ == "__main__":
-    A, Q = read_input()
-    binary_search(A, Q)
+    # A, Q = read_input()
+    # binary_search(A, Q)
+    closest_to_the_right()
