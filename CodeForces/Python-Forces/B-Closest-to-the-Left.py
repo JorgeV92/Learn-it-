@@ -28,10 +28,8 @@
 #################################################################################################
 
 
-#
-# [5, 8, 10]
-# [4, 9, 10]
-#
+from typing import List
+import bisect
 
 def read_input():
     n, k = map(int, input().strip().split())
@@ -41,12 +39,26 @@ def read_input():
     assert len(q) == k
     return a, q
 
+def binary_search_bisect(A: List[int], Q: List[int]) -> List[int]:
+    result = []
+    for q in Q:
+        # Find the insertion point for q in A to maintain sorted order.
+        index = bisect.bisect_right(A, q)
+        # index is the position where q would go to keep A sorted,
+        # which means all elements to the left of this index are <= q.
+        # So, the maximum index of an element not greater than q is index - 1.
+        if index > 0:
+            result.append(index)
+        else:
+            result.append(0)
+    return result
+
 def binary_search(A, Q):
     result = []
     for q in Q:
         l = 0; r = len(A) - 1
         found = False
-        while (l <= r):
+        while l <= r:
             m = l + (r - l) // 2
             if A[m] == q:
                 result.append(m + 1)
@@ -59,11 +71,29 @@ def binary_search(A, Q):
         if not found:
             result.append(r + 1)
     return result
+
+def closest_to_the_left():
+    n, k = map(int, input().strip().split())
+    a = list(map(int, input().strip().split()))
+    queues = list(map(int, input().strip().split()))
+    for x in queues:        
+        l = -1  # a[i] <= x
+        r = n   # a[r] > x
+        while (r > l + 1):
+            m = (l + r) // 2
+            if a[m] <= x:
+                l = m 
+            else:
+                r = m 
+        print(l + 1)
+        
         
     
 if __name__ == "__main__":
-    A, Q = read_input()
-    res = binary_search(A, Q)
-    print("\n")
-    for num in res:
-        print(num)
+    # A, Q = read_input()
+    # res = binary_search(A, Q)
+    # print("\n")
+    # for num in res:
+    #     print(num)
+    
+    closest_to_the_left()

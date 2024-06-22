@@ -2,6 +2,8 @@
 
 This is a documentation of the process of learning and understanding algorithms and data structures, serving as a personal record of LeetCode questions. Most implementations will include more comments and descriptions than necessary. Initially, most implementations will be done in C++, but I will also work on an OCaml version to maintain my functional programming skills and continue growing my skill set with a meta-language. All resources will be credited and documented if I use solutions provided on the web, such as NeetCode.
 
+I will also work on problem sets from **CodeForces** and **CodeChef** to give myself as much exposure to algorithm problems and learn techniques and methods to solve as many problems as I can as I work through the directory. Also, I added Python subdirectories to each to keep myself fresh with Python as well.
+
 
 ### Arrays & Hashing
 
@@ -48,4 +50,6 @@ This is a documentation of the process of learning and understanding algorithms 
  2. [Neetcode](https://neetcode.io/)
  3. [Algorithms Jeff Erickson](https://jeffe.cs.illinois.edu/teaching/algorithms/)
  4. [Introduction to Algorithms, Fourth Edition](https://dl.ebooksworld.ir/books/Introduction.to.Algorithms.4th.Leiserson.Stein.Rivest.Cormen.MIT.Press.9780262046305.EBooksWorld.ir.pdf)
+ 5. [CodeForces](https://codeforces.com/)
+ 6. [CodeChef](https://www.codechef.com/)
 
