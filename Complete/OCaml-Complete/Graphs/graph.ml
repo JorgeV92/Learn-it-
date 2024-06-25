@@ -192,7 +192,7 @@ let print_graph graph =
 
 (* ******************************************************************************************** *)
 
-(* Construct the Minimal Spanning Tree Kruskal's algorithm *)
+                (* Construct the Minimal Spanning Tree Kruskal's algorithm *)
 
 (* Definition of graph as a pair of two sets (nodes and edges) *)
 type 'a graph_term = {nodes : 'a list; edges : ('a * 'a) list}
@@ -337,3 +337,122 @@ let print_labeled_graph graph =
   print_newline ()
 
 let () = print_labeled_graph mst
+
+
+(* ******************************************************************************************** *)
+                                  (* Graph Isomorphism *)
+                                 
+type 'a graph_term = {nodes : 'a list; edges : ('a * 'a) list}
+
+(* function to check if two sets of edges are equal *)
+  let edges_equal edges1 edges2 = 
+    let sorted_edges1 = List.sort compare edges1 in 
+    let sorted_edges2 = List.sort compare edges2 in 
+    sorted_edges1 = sorted_edges2
+
+(* Generate all permutations of a list *)
+let rec permutations lst = 
+  let rec insert_all_positions x = function 
+    | [] -> [[x]]
+    | h :: t -> 
+      (x :: h :: t) :: (List.map (fun l -> h :: l) (insert_all_positions x t ))
+  in
+  match lst with 
+    | []  -> [[]]
+    | h :: t -> 
+      let perms = permutations t in 
+      List.concat (List.map (insert_all_positions h) perms)
+
+(* Apply a permutation to the nodes and transform the edges *)
+let apply_permutations perm nodes edges = 
+  let node_map = List.combine nodes perm in 
+  let find_mapping n = List.assoc n node_map in 
+  List.map (fun (u, v) -> (find_mapping u, find_mapping v)) edges
+
+(* Check if two graphs are isomorphic *)
+  let is_isomorphic g1 g2 = 
+    if List.length g1.nodes <> List.length g2.nodes || List.length g1.edges <> List.length g2.edges
+      then 
+        false
+    else
+      let perms = permutations g1.nodes in 
+      List.exists (fun perm -> 
+        let transformed_edges = apply_permutations perm g1.nodes g1.edges in 
+        edges_equal transformed_edges g2.edges
+        ) perms
+
+let g1 = {nodes = [1; 2; 3; 4; 5; 6; 7; 8];
+        edges = [(1, 5); (1, 6); (1, 7); (2, 5); (2, 6); (2, 8); (3, 5);
+                 (3, 7); (3, 8); (4, 6); (4, 7); (4, 8)]}
+
+let g2 = {nodes = [5; 6; 7; 8; 1; 2; 3; 4];
+        edges = [(5, 1); (5, 2); (5, 3); (6, 1); (6, 2); (6, 4); (7, 1);
+                 (7, 3); (7, 4); (8, 2); (8, 3); (8, 4)]}
+
+let () = 
+  Printf.printf "\nGraph Isomorphism\n";
+  if is_isomorphic g1 g2 then 
+    Printf.printf "The graphs are isomorphic\n"
+  else
+    Printf.printf "The graphs are not isomorphic\n"
+
+
+(* ******************************************************************************************** *)
+                                  (* Breadth-first search *)
+
+
+(* Helper function to get neighbors of a node with a condition *)
+let neighbors g a cond = 
+  let edge l (b, c) = 
+    if b = a && cond c then c :: l
+    else if c = a && cond b then b :: l
+    else l
+  in 
+  List.fold_left edge [] g.edges
+
+let bfs graph start_node = 
+  let visited = Hashtbl.create (List.length graph.nodes) in 
+  let q = Queue.create () in 
+  Queue.add start_node q; 
+  Hashtbl.add visited start_node ();
+
+  let rec bfs_aux () = 
+    if Queue.is_empty q then []
+    else
+      let node = Queue.take q in 
+      let node_neighbors = neighbors graph node (fun n -> not (Hashtbl.mem visited n)) in 
+      List.iter (fun neighbor ->  
+          Hashtbl.add visited neighbor (); 
+          Queue.add neighbor q 
+      ) node_neighbors;
+      node :: bfs_aux ()
+  in
+  bfs_aux ()
+
+let g = {nodes = [1; 2; 3; 4; 5; 6; 7; 8];
+          edges = [(1, 5); (1, 6); (1, 7); (2, 5); (2, 6); (2, 8); (3, 5);
+                    (3, 7); (3, 8); (4, 6); (4, 7); (4, 8)]}
+
+let () = 
+  Printf.printf "\n Breath-first search\n";
+  let bfs_result = bfs g 1 in 
+  List.iter (Printf.printf "%d ") bfs_result;
+  print_newline ()
+
+let dfs graph start_node = 
+  let visited = Hashtbl.create (List.length graph.nodes) in 
+
+  let rec dfs_aux node = 
+    if Hashtbl.mem visited node then []
+    else begin
+      Hashtbl.add visited node ();
+      node :: List.concat (List.map (dfs_aux) (neighbors graph node (fun n -> not (Hashtbl.mem visited n))))
+    end
+  in 
+  dfs_aux start_node
+
+let () = 
+  Printf.printf "\nDepth-first search\n";
+  let dfs_result = dfs g 1 in 
+  List.iter (Printf.printf "%d ") dfs_result;
+  print_newline ()
