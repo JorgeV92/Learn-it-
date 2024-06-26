@@ -439,6 +439,9 @@ let () =
   List.iter (Printf.printf "%d ") bfs_result;
   print_newline ()
 
+(* ******************************************************************************************** *)
+                                (* Depth-first search *)
+
 let dfs graph start_node = 
   let visited = Hashtbl.create (List.length graph.nodes) in 
 
@@ -456,3 +459,74 @@ let () =
   let dfs_result = dfs g 1 in 
   List.iter (Printf.printf "%d ") dfs_result;
   print_newline ()
+
+(* ******************************************************************************************** *)
+                              (* Node Degree and Graph Coloration *)
+
+              (* The degree of a node in a graph is the number of edges connected to it. *)
+
+type 'a graph_term = { nodes : 'a list; edges : ('a * 'a) list}
+
+let degree graph node = 
+  List.fold_left (fun acc (u, v) -> if u = node || v = node then acc + 1 else acc) 0 graph.edges
+
+let g = {nodes = [1; 2; 3; 4; 5; 6; 7; 8];
+          edges = [(1, 5); (1, 6); (1, 7); (2, 5); (2, 6); (2, 8); (3, 5);
+                    (3, 7); (3, 8); (4, 6); (4, 7); (4, 8)]}
+
+let () = 
+  Printf.printf "\nDegree of node 1: %d\n" (degree g 1)
+
+
+(* ******************************************************************************************** *)
+                      (*  List of Nodes Sorted by Decreasing Degree *)
+
+let nodes_sorted_by_degree graph = 
+  List.sort (fun a b -> compare (degree graph b) (degree graph a)) graph.nodes
+
+let () = 
+  Printf.printf "\nNodes sorted by decreasing degree: ";
+  let sorted_nodes = nodes_sorted_by_degree g in
+  List.iter (Printf.printf "%d ") sorted_nodes;
+  print_newline ()
+
+
+(* ******************************************************************************************** *)
+                      (* Welsh-Powell Algorithm for Graph Coloring *)
+
+(* Function to check if a node can be colored with a given color *)
+let can_color node color graph coloring = 
+  List.for_all (fun (u, v) -> 
+    if u = node then not (List.mem_assoc v coloring && List.assoc v coloring = color)
+    else if v = node then not (List.mem_assoc u coloring && List.assoc u coloring = color) 
+    else true 
+    ) graph.edges
+
+(* Welsh-Powell algorithm to color the graph *)
+let welsh_powell graph = 
+  let sorted_nodes = nodes_sorted_by_degree graph in 
+  let rec color_nodes nodes coloring color = 
+    match nodes with 
+      | [] -> coloring 
+      | n :: ns -> 
+        if can_color n color graph coloring then 
+          color_nodes ns ((n, color) :: coloring) color 
+        else
+          color_nodes ns coloring color 
+  in
+  let rec assig_colors nodes coloring current_color = 
+    match nodes with 
+      | [] -> coloring 
+      | _ -> 
+        let new_coloring = color_nodes nodes coloring current_color in 
+        let remaining_nodes = List.filter (fun n -> not (List.mem_assoc n new_coloring)) nodes in 
+        assig_colors remaining_nodes new_coloring (current_color + 1)
+  in
+  assig_colors sorted_nodes [] 0   
+
+let () = 
+  let coloring = welsh_powell g in 
+  Printf.printf "\nNode coloring:\n";
+  List.iter (fun (node, color) -> Printf.printf "Node %d -> Color %d\n" node color) coloring 
+
+(* ******************************************************************************************** *)
