@@ -82,8 +82,6 @@ I will also work on problem sets from **CodeForces** and **CodeChef** to give my
 
 
 
-### A-Complete
-
 
  # Resources
  1. [Wiki](https://en.wikipedia.org/wiki/Algorithm) 
