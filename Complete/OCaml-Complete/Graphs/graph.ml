@@ -494,6 +494,10 @@ let () =
 (* ******************************************************************************************** *)
                       (* Welsh-Powell Algorithm for Graph Coloring *)
 
+let g_color = {nodes = [1;  2; 3; 4; 5; 6; 7; 8]; 
+               edges = [(1, 6); (1, 7); (1, 8); (2, 5); (2,7); (2,8); 
+                       (3, 5); (3,6); (3,8); (4,5); (4,6); (4,7)]}
+
 (* Function to check if a node can be colored with a given color *)
 let can_color node color graph coloring = 
   List.for_all (fun (u, v) -> 
@@ -525,8 +529,63 @@ let welsh_powell graph =
   assig_colors sorted_nodes [] 0   
 
 let () = 
-  let coloring = welsh_powell g in 
+  let coloring = welsh_powell g_color in 
   Printf.printf "\nNode coloring:\n";
   List.iter (fun (node, color) -> Printf.printf "Node %d -> Color %d\n" node color) coloring 
+
+(* ******************************************************************************************** *)
+                                (* Depth-First Order Graph Traversal *)
+
+Module M : Graph = struct 
+
+  module Char_map = Map.Make (Char)
+  type node = Char
+  type t = (node_list) Char_map.t 
+
+  let of_adjacency l = 
+    List.fold_right (fun (x, y) -> Char_map.add x y) l Char_map.empty 
+
+  type colors = White | Gray | Black
+
+  type 'a state =  {
+    d : int Char_map t; (*discovery time*)
+    f : int Char_map t; (*finishing time*)
+    pred : char CharMap t; (*predecessor*)
+    color : colors Char_map t; (*vertex colors*)
+    acc : 'a; (*user specified type used by 'fold'*)
+  }
+
+  let dfs_fold g c fn acc = 
+    let rec dfs_visit t u {d; f; pred; color; acc} = 
+      let edge (t, state) v = 
+        if Char_map.find v state.color = White then 
+          dfs_visit t v {state with pred = Char_map.add v u state.pred}
+      else (t, state)
+    in
+    let t, {d; f; pred; color; acc} = 
+      let t = t + 1 in 
+      List.fold_left edge 
+        (t, {d = Char_map.add u t d; f; 
+              pred; color = Char_map.add u Gray color; acc = fn acc u })
+        (Char_map.find u g)
+    in
+    let t = t + 1 in 
+    t, {d; f = Char_map.add u t f; pred; 
+          color = Char_map.add u Black color; acc}
+    in
+    let v = List.fold_left (fun k (x, _ ) -> x :: k) []
+                            (Char_map.bindings g) in 
+    let initial_state = 
+      {d = Char_map.empty;
+       f = Char_map.empty; 
+       pred = Char_map.empty; 
+       color = List.fold_right (fun x -> Char_map.add x White)
+                                v Char_map.empty;
+        acc}
+    in
+    (snd (dfs_visit 0 c initial_state)).acc
+  end;;
+Module M : GRAPH
+
 
 (* ******************************************************************************************** *)
