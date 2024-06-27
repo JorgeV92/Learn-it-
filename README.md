@@ -81,7 +81,7 @@ I will also work on problem sets from **CodeForces** and **CodeChef** to give my
 |           1 | [Determine Color of a Chessboard Square](https://leetcode.com/problems/determine-color-of-a-chessboard-square/)                 | Easy         | [Solution](https://github.com/fishercoder1534/Leetcode/blob/master/src/main/java/com/fishercoder/solutions/_1812.java)                                                                                                                                                             |
 
 
-
+### A-Complete
 
  # Resources
  1. [Wiki](https://en.wikipedia.org/wiki/Algorithm) 
