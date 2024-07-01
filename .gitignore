@@ -1,0 +1,58 @@
+# Ignore build directory
+/build/
+/Complete/CPP-Complete/BST/build/
+
+# Ignore CMake FetchContent directories
+/_deps/
+/Complete/CPP-Complete/BST/build/_deps/
+
+# Ignore other dependencies fetched by FetchContent
+**/_deps/
+
+# Ignore generated executable files
+**/*.o
+**/*.a
+**/*.so
+**/*.exe
+**/*.out
+**/*.dylib
+
+# Ignore CMake generated files
+/CMakeFiles/
+/CMakeCache.txt
+/cmake_install.cmake
+/Makefile
+/compile_commands.json
+/Testing/
+
+# Ignore Visual Studio files
+.vscode/
+.vs/
+
+# Ignore IDE project files
+*.idea/
+*.sublime-project
+*.sublime-workspace
+
+# Ignore temporary files
+*.swp
+*.bak
+*.tmp
+*.log
+*.aux
+*.dvi
+*.bbl
+*.blg
+*.brf
+*.nlo
+*.nls
+*.out
+*.toc
+*.lof
+*.lot
+*.fls
+*.fdb_latexmk
+*.synctex.gz
+*.pdf
+*.snm
+*.nav

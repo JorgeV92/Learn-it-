@@ -88,6 +88,9 @@
         "shared_mutex": "cpp",
         "stop_token": "cpp",
         "text_encoding": "cpp",
-        "thread": "cpp"
+        "thread": "cpp",
+        "execution": "cpp",
+        "fstream": "cpp",
+        "print": "cpp"
     }
 }

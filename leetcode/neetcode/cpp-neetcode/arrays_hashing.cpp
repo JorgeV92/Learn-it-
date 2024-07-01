@@ -3,6 +3,7 @@
 #include <set>
 #include <string>
 #include <stack>
+#include <queue>
 #include <unordered_map>
 #include <functional>
 
@@ -366,9 +367,7 @@ vector<vector<int>> subsets(vector<int>& A) {
     backtrack(0);
     return result;
 }
-
 /*
-
 Let’s work through the example A = [1, 2, 3].
 
 	1.	Initial Call:
@@ -445,6 +444,40 @@ Let’s work through the example A = [1, 2, 3].
     result = [[], [1], [1, 2], [1, 2, 3], [1, 3], [2], [2, 3], [3]]
 */
 
+
+/////////////////////////////////////////////////////////////////////////////////////////////////////
+//                                              END
+/////////////////////////////////////////////////////////////////////////////////////////////////////
+
+/////////////////////////////////////////////////////////////////////////////////////////////////////
+//                                       Heap / Priority Queue
+/////////////////////////////////////////////////////////////////////////////////////////////////////
+
+///////////////////////////////////////////////////////////////////
+//               Kth Largest Element in a Stream 
+///////////////////////////////////////////////////////////////////
+class KthLargest {
+private:
+    priority_queue<int, vector<int>, greater<int>> minHeap;
+    int k; // k largest elemets 
+public:
+    KthLargest(int k, vector<int>& A) {
+        this->k = k;
+        for (int num : A) {
+            add(num);
+        }
+    }
+    
+    int add(int val) {
+        if (minHeap.size() < k) {
+            minHeap.push(val);
+        } else if (val > minHeap.top()) {
+            minHeap.pop();
+            minHeap.push(val);
+        }
+        return minHeap.top();
+    }
+};
 
 /////////////////////////////////////////////////////////////////////////////////////////////////////
 //                                              END
