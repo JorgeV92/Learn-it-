@@ -1,7 +1,7 @@
-#include <iostream>
+#include <iostream> 
 #include <memory>
 #include <vector>
-#include "CLI/CLI.hpp" // Include CLI11 header
+#include "CLI/CLI.hpp"
 
 using namespace std;
 
@@ -13,18 +13,18 @@ struct node {
     node(int k) : key(k), left(nullptr), right(nullptr) {}
 };
 
-// Insert a new node with key k into the BST
-unique_ptr<node> insert(unique_ptr<node> root, int k) {
+
+unique_ptr<node>  insert(unique_ptr<node>  root, int k) {
     if (!root) return make_unique<node>(k);
     if (k < root->key) {
         root->left = insert(std::move(root->left), k);
     } else if (k > root->key) {
         root->right = insert(std::move(root->right), k);
     }
+
     return root;
 }
 
-// Search for a node with key k in the BST
 node* search(node* root, int k) {
     if (!root || root->key == k) return root;
     if (k < root->key) {
@@ -34,16 +34,14 @@ node* search(node* root, int k) {
     }
 }
 
-// Inorder traversal of the BST
 void inorder(const node* root) {
     if (root) {
         inorder(root->left.get());
         cout << root->key << " ";
-        inorder(root->right.get());
+        inorder(root->right.get()); 
     }
 }
 
-// Find the node with the minimum key in the BST
 node* tree_minimum(node* root) {
     while (root && root->left) {
         root = root->left.get();
@@ -51,30 +49,35 @@ node* tree_minimum(node* root) {
     return root;
 }
 
-// Find the node with the maximum key in the BST
-node* tree_maximum(node* root) {
+struct node* tree_maximum(struct node* root) {
     while (root && root->right) {
         root = root->right.get();
     }
     return root;
 }
 
-// Delete a node with key k from the BST
-unique_ptr<node> tree_delete(unique_ptr<node> root, int k) {
+unique_ptr<node> tree_delete(unique_ptr<node>  root, int k) {
     if (!root) return nullptr;
 
     if (k < root->key) {
+        // Transfer ownership of root->left to the recursive call 
         root->left = tree_delete(std::move(root->left), k);
     } else if (k > root->key) {
+        // Transfer ownership of root->right to the recursive call 
         root->right = tree_delete(std::move(root->right), k);
     } else {
+        // Node to be deleted is found 
         if (!root->left) {
+            // If no left child, return the right subtree, transferring ownership
             return std::move(root->right);
         } else if (!root->right) {
+            // If no right child, return the left subtree, transferring ownershi[] 
             return std::move(root->left);
         } else {
+            // Node with two children: Get the minimum node from the right subtree
             node* temp = tree_minimum(root->right.get());
             root->key = temp->key;
+            // Delete the inorder successor 
             root->right = tree_delete(std::move(root->right), temp->key);
         }
     }
@@ -101,12 +104,11 @@ int main(int argc, char** argv) {
 
     cout << "Inorder traversal after insertions: ";
     inorder(root.get());
-    cout << endl;
 
     if (search_value != -1) {
         node* result = search(root.get(), search_value);
         if (result) {
-            cout << "Found " << search_value << " in the BST." << endl;
+            cout << endl << "Found " << search_value << " in the BST." << endl;
         } else {
             cout << search_value << " not found in the BST." << endl;
         }

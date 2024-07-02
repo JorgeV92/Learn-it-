@@ -26,7 +26,3 @@ let table2 a b expr =
   (false, true, eval2 a false b true expr);
   (false, false, eval2 a false b false expr);]
 
-
-let table2 p a b = 
-  match p with 
-    | Var v ->    
